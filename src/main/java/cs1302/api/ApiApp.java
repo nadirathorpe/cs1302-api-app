@@ -94,6 +94,8 @@ public class ApiApp extends Application {
     private String define = "null";
     private static final String API_KEY = "afb042e4-8d41-45aa-a86b-ce1fc8eb45f3";
 
+    Timeline timeline;
+
     /**
      * Constructs an {@code ApiApp} object. This default (i.e., no argument)
      * constructor is executed in Step 2 of the JavaFX Application Life-Cycle.
@@ -122,6 +124,7 @@ public class ApiApp extends Application {
         this.definition.setWrapText(true);
         this.definition.setEditable(false);
 
+        this.timeline = new Timeline();
     } // ApiApp
 
     /**
@@ -141,6 +144,22 @@ public class ApiApp extends Application {
         // root
         this.root.getChildren().addAll(welcomeLayer, wordLayer, defLayer);
 
+        EventHandler<ActionEvent> delay = (ActionEvent e) -> {
+
+            System.out.println("delay");
+            /**
+               if (!this.defButton.isDisabled()){
+               this.defButton.setDisable(true);
+               } else {
+            */
+            this.defButton.setDisable(false);
+            // } // if
+        };
+
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(5), delay);
+        timeline.setCycleCount(2);
+        timeline.getKeyFrames().add(keyFrame);
+
         EventHandler<ActionEvent> define = (ActionEvent e) -> {
 
             String word = this.wordField.getText();
@@ -153,8 +172,12 @@ public class ApiApp extends Application {
             } catch (IOException ioe) {
                 if (!(ioe.getMessage() == null)) {
                     definition.setText(ioe.getMessage());
+                    timeline.play();
                 } else {
+                    this.defButton.setDisable(true);
                     definition.setText("Invalid word. Try again.");
+//                    timeline.stop();
+                    timeline.play();
                 } // if
             } // try
 
@@ -171,22 +194,12 @@ public class ApiApp extends Application {
 
         this.stage = stage;
 
-        /**
-         // demonstrate how to load local asset using "file:resources/"
-         Image bannerImage = new Image("file:resources/readme-banner.png");
-         ImageView banner = new ImageView(bannerImage);
-         banner.setPreserveRatio(true);
-         banner.setFitWidth(640);
-        */
-        // some labels to display information
-        Label notice = new Label("Modify the starter code to suit your needs.");
-
         // setup scene
-//        root.getChildren().addAll(banner, notice);
+
         scene = new Scene(root);
 
         // setup stage
-        stage.setTitle("ApiApp!");
+        stage.setTitle("Part Of Speech - Word Finder");
         stage.setScene(scene);
         stage.setOnCloseRequest(event -> Platform.exit());
         stage.sizeToScene();
@@ -209,7 +222,7 @@ public class ApiApp extends Application {
         } else {
             url = ("https://www.dictionaryapi.com/api/v3/references/collegiate/json/" +
             word.strip().toLowerCase() + "?key=" + API_KEY);
-//        afb042e4-8d41-45aa-a86b-ce1fc8eb45f3
+
         } // if
 
         return url;
@@ -265,6 +278,7 @@ public class ApiApp extends Application {
                 string = json.indexOf("on\":");
                 target = string + 5;
                 msg = json.substring(target, target + 70);
+                this.defButton.setDisable(true);
             } // if
 
             System.out.println(msg);

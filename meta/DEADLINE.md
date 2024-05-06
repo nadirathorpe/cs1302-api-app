@@ -7,10 +7,11 @@ Markdown is transformed into nice-looking HTML.
 
 ## Part 1.1: App Description
 
-> Please provide a friendly description of your app, including
-> the primary functions available to users of the app. Be sure to
-> describe exactly what APIs you are using and how they are connected
-> in a meaningful way.
+My app is a dictionary app that displays different charactertistics (definition, phonetics, etc) and also defines the part of speech of the chosen word.
+The first call to the Free Dictionary API is used for the word's characteristics.
+The second call to the Meriam Webster API takes the part of speech result from the first call, and searches for its defintion.
+
+https://github.com/nadirathorpe/cs1302-api-app/tree/main/
 
 > **Also, include the GitHub `https` URL to your repository.**
 
@@ -25,18 +26,22 @@ TODO WRITE / REPLACE
 > information are provided below. If your app uses more than two RESTful
 > JSON APIs, then include them with similar formatting.
 
-### API 1
+### API 1 - Free Dictionary
 
 ```
-https://.../replace/me
+https://api.dictionaryapi.dev/api/v2/entries/en/word
+
 ```
 
 > Replace this line with notes (if needed) or remove it (if not needed).
 
-### API 2
+### API 2 - Meriam Webster
 
 ```
-https://../replace/me
+https://www.dictionaryapi.com/api/v3/references/collegiate/json/word?key=afb042e4-8d41-45aa-a86b-ce1fc8eb45f3
+
+This link requires an API key (afb042e4-8d41-45aa-a86b-ce1fc8eb45f3) and has a query limit of 1000 per day.
+
 ```
 
 > Replace this line with notes (if needed) or remove it (if not needed).
@@ -45,6 +50,7 @@ https://../replace/me
 
 > What is something new and/or exciting that you learned from working
 > on this project?
+I finally learned how to breakdown the elements of a json String into multiple classes to be parsed. It is exciting to know how much I can do with that ability moving forward.
 
 TODO WRITE / REPLACE
 
@@ -52,5 +58,6 @@ TODO WRITE / REPLACE
 
 > If you could start the project over from scratch, what do
 > you think might do differently and why?
+I would probably come up with something more creative, however with finals week and the hecticness of closing out the school year I was not able to think too hard about my options. If I could choose my own APIs (not on this list), I would do that as well.
 
 TODO WRITE / REPLACE
